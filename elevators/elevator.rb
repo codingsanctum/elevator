@@ -6,15 +6,17 @@ class Elevator
     @current_riders         = []
     @top_floor              = top_floor
     @current_direction      = 0
-    @floors_needing_pickup  = []
+    @people_needing_pickup  = []
   end
 
   def increment_floor!
+    return decrement_floor! if @current_floor == @top_floor
     @current_floor += 1
     @current_direction = 1
   end
 
   def decrement_floor!
+    return increment_floor! if @current_floor == 0
     @current_floor -= 1
     @current_direction = -1
   end
@@ -25,9 +27,6 @@ class Elevator
   end
 
   def move
-    puts @floors_needing_pickup
-    return decrement_floor! if @current_floor == @top_floor
-    return increment_floor! if @current_floor == 0
     if @current_direction >= 0
       increment_floor!
     else
@@ -46,7 +45,7 @@ class Elevator
   def get_on(person)
     return false if @current_riders.count >= MAX_CAPACITY
     @current_riders << person
-    @floors_needing_pickup.delete(person)
+    @people_needing_pickup.delete(person)
     return true
   end
 
@@ -55,7 +54,15 @@ class Elevator
   end
 
   def request_pickup(person)
-    @floors_needing_pickup << person
-    @floors_needing_pickup.uniq!
+    @people_needing_pickup << person
+    @people_needing_pickup.uniq!
+  end
+
+  def floors_waiting
+    floors = []
+    @people_needing_pickup.each do |p|
+      floors << p.starting_floor
+    end
+    return floors.uniq
   end
 end

@@ -37,7 +37,7 @@ class Person
     return @elevator
   end
 
-  def starting_floor?
+  def starting_floor
     return @starting_floor
   end
 end
