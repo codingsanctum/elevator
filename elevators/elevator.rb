@@ -2,10 +2,11 @@ class Elevator
   MAX_CAPACITY = 3
 
   def initialize(top_floor)
-    @current_floor      = 0
-    @current_riders     = []
-    @top_floor          = top_floor
-    @current_direction  = 0
+    @current_floor          = 0
+    @current_riders         = []
+    @top_floor              = top_floor
+    @current_direction      = 0
+    @floors_needing_pickup  = []
   end
 
   def increment_floor!
@@ -24,6 +25,7 @@ class Elevator
   end
 
   def move
+    puts @floors_needing_pickup
     return decrement_floor! if @current_floor == @top_floor
     return increment_floor! if @current_floor == 0
     if @current_direction >= 0
@@ -44,10 +46,16 @@ class Elevator
   def get_on(person)
     return false if @current_riders.count >= MAX_CAPACITY
     @current_riders << person
+    @floors_needing_pickup.delete(person)
     return true
   end
 
   def get_off(person)
     @current_riders.delete(person)
+  end
+
+  def request_pickup(person)
+    @floors_needing_pickup << person
+    @floors_needing_pickup.uniq!
   end
 end

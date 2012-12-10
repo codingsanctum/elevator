@@ -1,8 +1,8 @@
 class Level
 
   NUM_OF_STARTING_PEOPLE  = 5
-  STARTING_TURNS          = [0,0,0,0,0]
-  STARTING_LEVELS         = [0,0,0,0,0]
+  STARTING_TURNS          = [1,0,3,0,0]
+  STARTING_LEVELS         = [6,0,1,0,0]
   ENDING_LEVELS           = [2,2,3,5,10]
   TOP_FLOOR               = 12
 

@@ -22,8 +22,8 @@ class Person
   end
 
   def get_on?(elevator)
-    return unless @starting_floor == elevator.current_floor
-    @elevator = elevator if elevator.get_on(self)
+    @elevator = elevator if @starting_floor == elevator.current_floor && elevator.get_on(self)
+    elevator.request_pickup(self) if @elevator.nil?
   end
 
   def my_floor?
@@ -35,5 +35,9 @@ class Person
 
   def elevator
     return @elevator
+  end
+
+  def starting_floor?
+    return @starting_floor
   end
 end
